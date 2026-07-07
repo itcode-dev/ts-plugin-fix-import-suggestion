@@ -35,7 +35,14 @@ const IMPORT_FIX_ID = 'fixMissingImport';
 const IMPORT_FIX_NAME = 'import';
 
 interface SpecifierFix {
+	/**
+	 * 수정 대상
+	 */
 	fixed: string;
+
+	/**
+	 * 소스
+	 */
 	specifier: string;
 }
 
