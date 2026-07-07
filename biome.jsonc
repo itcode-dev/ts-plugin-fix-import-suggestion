@@ -1,0 +1,36 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"extends": ["@itcode-dev/biome-config"],
+	"files": {
+		"includes": ["!dist"]
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.{tsx,ts}"],
+			"linter": {
+				"rules": {
+					"complexity": {
+						"noExcessiveCognitiveComplexity": "off"
+					},
+					"correctness": {
+						"noUndeclaredDependencies": "off",
+						"noUndeclaredVariables": "off",
+						"noUnresolvedImports": "off",
+						"useQwikValidLexicalScope": "off"
+					},
+					"nursery": {
+						"noContinue": "off",
+						"noFloatingPromises": "off",
+						"useExplicitReturnType": "off"
+					},
+					"performance": {
+						"noImgElement": "off"
+					},
+					"security": {
+						"noSecrets": "off"
+					}
+				}
+			}
+		}
+	]
+}
