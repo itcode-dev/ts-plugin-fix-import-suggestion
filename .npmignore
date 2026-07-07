@@ -2,6 +2,7 @@ src/
 tsconfig.json
 tsup.config.ts
 biome.jsonc
+CHANGELOG.md
 pnpm-lock.yaml
 pnpm-workspace.yaml
 *.tsbuildinfo
