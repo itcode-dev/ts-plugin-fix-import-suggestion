@@ -3,6 +3,7 @@
 		"declaration": true,
 		"declarationMap": false,
 		"exactOptionalPropertyTypes": true,
+		"ignoreDeprecations": "6.0",
 		"isolatedModules": true,
 		"module": "nodenext",
 		"moduleDetection": "force",
@@ -17,5 +18,5 @@
 		"target": "esnext",
 		"types": []
 	},
-	"include": ["**/*.ts"]
+	"include": ["src/**/*.ts"]
 }

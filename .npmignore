@@ -1,5 +1,7 @@
 src/
 tsconfig.json
+tsup.config.ts
 biome.jsonc
 pnpm-lock.yaml
+pnpm-workspace.yaml
 *.tsbuildinfo
