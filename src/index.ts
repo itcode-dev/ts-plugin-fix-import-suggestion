@@ -1,4 +1,11 @@
-import type * as ts from 'typescript';
+/**
+ * 인덱스 모듈
+ *
+ * @author RWB
+ * @since 2026.07.07 Tue 18:53:14
+ */
+
+import type ts from 'typescript';
 import type { CompletionEntry, FileTextChanges, LanguageService, server } from 'typescript';
 import { fixExtension, getExtension } from './extension.js';
 
