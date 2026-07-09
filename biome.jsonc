@@ -2,7 +2,7 @@
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"extends": ["@itcode-dev/biome-config/2.4"],
 	"files": {
-		"includes": ["!dist"]
+		"includes": ["!dist", "!coverage"]
 	},
 	"overrides": [
 		{
