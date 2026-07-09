@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"allowImportingTsExtensions": true,
 		"declaration": true,
 		"declarationMap": false,
 		"exactOptionalPropertyTypes": true,
@@ -7,6 +8,7 @@
 		"isolatedModules": true,
 		"module": "nodenext",
 		"moduleDetection": "force",
+		"noEmit": true,
 		"noUncheckedIndexedAccess": true,
 		"noUncheckedSideEffectImports": true,
 		"outDir": "./dist",
@@ -16,7 +18,8 @@
 		"sourceMap": false,
 		"strict": true,
 		"target": "esnext",
-		"types": []
+		"types": ["node"]
 	},
-	"include": ["src/**/*.ts"]
+	"exclude": ["node_modules"],
+	"include": ["src/**/*.mts"]
 }

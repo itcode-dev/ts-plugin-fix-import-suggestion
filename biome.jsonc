@@ -1,12 +1,12 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"extends": ["@itcode-dev/biome-config"],
+	"extends": ["@itcode-dev/biome-config/2.4"],
 	"files": {
 		"includes": ["!dist"]
 	},
 	"overrides": [
 		{
-			"includes": ["**/*.{tsx,ts}"],
+			"includes": ["**/*.{tsx,ts,mts,js}"],
 			"linter": {
 				"rules": {
 					"complexity": {
@@ -28,6 +28,16 @@
 					},
 					"security": {
 						"noSecrets": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["**/*.{js}"],
+			"linter": {
+				"rules": {
+					"style": {
+						"noCommonJs": "off"
 					}
 				}
 			}
