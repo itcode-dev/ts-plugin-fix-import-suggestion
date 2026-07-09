@@ -1,51 +1,50 @@
-import assert from 'node:assert/strict';
-import { describe, it } from 'node:test';
+import { describe, expect, it } from 'vitest';
 import { fixExtension, getExtension } from './extension.mts';
 
 describe('getExtension', () => {
 	it('returns undefined for undefined input', () => {
-		assert.equal(getExtension(undefined), undefined);
+		expect(getExtension(undefined)).toBeUndefined();
 	});
 
 	it('returns undefined for a file with no known extension', () => {
-		assert.equal(getExtension('package.json'), undefined);
+		expect(getExtension('package.json')).toBeUndefined();
 	});
 
 	it('recognizes .tsx before .ts (order matters)', () => {
-		assert.equal(getExtension('Button.tsx'), '.tsx');
+		expect(getExtension('Button.tsx')).toBe('.tsx');
 	});
 
 	it('recognizes .ts', () => {
-		assert.equal(getExtension('formatDate.ts'), '.ts');
+		expect(getExtension('formatDate.ts')).toBe('.ts');
 	});
 
 	it('recognizes .jsx before .js', () => {
-		assert.equal(getExtension('Button.jsx'), '.jsx');
+		expect(getExtension('Button.jsx')).toBe('.jsx');
 	});
 
 	it('recognizes .js', () => {
-		assert.equal(getExtension('formatDate.js'), '.js');
+		expect(getExtension('formatDate.js')).toBe('.js');
 	});
 });
 
 describe('fixExtension', () => {
 	it('swaps a fake .js specifier for the real .ts extension', () => {
-		assert.equal(fixExtension('./formatDate.js', '/repo/src/formatDate.ts'), './formatDate.ts');
+		expect(fixExtension('./formatDate.js', '/repo/src/formatDate.ts')).toBe('./formatDate.ts');
 	});
 
 	it('swaps a fake .jsx specifier for the real .tsx extension', () => {
-		assert.equal(fixExtension('./Button.jsx', '/repo/src/Button.tsx'), './Button.tsx');
+		expect(fixExtension('./Button.jsx', '/repo/src/Button.tsx')).toBe('./Button.tsx');
 	});
 
 	it('leaves the specifier untouched when the real file is genuinely .js', () => {
-		assert.equal(fixExtension('lodash/debounce.js', '/repo/node_modules/lodash/debounce.js'), 'lodash/debounce.js');
+		expect(fixExtension('lodash/debounce.js', '/repo/node_modules/lodash/debounce.js')).toBe('lodash/debounce.js');
 	});
 
 	it('leaves the specifier untouched when fileName is unresolved', () => {
-		assert.equal(fixExtension('./formatDate.js', undefined), './formatDate.js');
+		expect(fixExtension('./formatDate.js', undefined)).toBe('./formatDate.js');
 	});
 
 	it('leaves the specifier untouched when it has no recognized extension', () => {
-		assert.equal(fixExtension('./formatDate', '/repo/src/formatDate.ts'), './formatDate');
+		expect(fixExtension('./formatDate', '/repo/src/formatDate.ts')).toBe('./formatDate');
 	});
 });
