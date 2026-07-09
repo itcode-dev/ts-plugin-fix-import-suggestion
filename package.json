@@ -2,9 +2,10 @@
 	"author": "RWB <psj2716@gmail.com>",
 	"description": "A TypeScript Language Service Plugin that fixes wrong .js/.jsx auto-import suggestions for Turborepo JIT packages in editors like VS Code.",
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.16",
-		"@itcode-dev/biome-config": "^1.0.1",
-		"tsup": "^8.5.1",
+		"@biomejs/biome": "2.4.15",
+		"@itcode-dev/biome-config": "^1.1.0",
+		"@types/node": "^26.1.0",
+		"tsdown": "^0.22.3",
 		"typescript": "^6.0.3"
 	},
 	"devEngines": {
@@ -27,13 +28,16 @@
 		"intellisense"
 	],
 	"license": "MIT",
-	"main": "dist/index.js",
+	"main": "dist/index.cjs",
 	"name": "@itcode-dev/ts-plugin-fix-import-suggestion",
 	"scripts": {
-		"build": "tsup",
+		"build": "tsdown",
+		"check": "biome check",
+		"pretest": "tsdown",
+		"test": "node --test",
 		"typecheck": "tsc --noEmit"
 	},
 	"type": "commonjs",
-	"types": "dist/index.d.ts",
+	"types": "dist/index.d.cts",
 	"version": "1.0.1"
 }
