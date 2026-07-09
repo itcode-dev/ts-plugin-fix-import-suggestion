@@ -107,6 +107,19 @@ Then restart the TypeScript server in your editor (in VS Code: **TypeScript: Res
 }
 ```
 
+## Development
+
+```sh
+pnpm install
+pnpm run build          # bundle src/ into dist/ via tsdown
+pnpm run typecheck      # tsc --noEmit
+pnpm run check          # biome check
+pnpm run test           # build dist/, then run the vitest suite
+pnpm run test:coverage  # same, with a coverage report (100% threshold enforced)
+```
+
+The suite mixes two testing styles: `src/**/*.test.mts` unit-tests the source directly (no build needed), while `test/tsserver.test.mts` loads the built `dist/index.cjs` to verify the actual CommonJS contract tsserver depends on — this is what catches bundler/build-output regressions that source-level tests can't see.
+
 ## Caveats
 
 - This plugin has only been verified in **VS Code**, in a limited set of setups. Other tsserver-based editors (WebStorm, Neovim, etc.) aren't tested.

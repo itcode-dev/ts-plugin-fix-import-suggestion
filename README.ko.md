@@ -107,6 +107,19 @@ pnpm add --save-dev @itcode-dev/ts-plugin-fix-import-suggestion
 }
 ```
 
+## 개발
+
+```sh
+pnpm install
+pnpm run build          # tsdown으로 src/를 dist/에 번들링
+pnpm run typecheck      # tsc --noEmit
+pnpm run check          # biome check
+pnpm run test           # dist/를 빌드한 뒤 vitest 스위트 실행
+pnpm run test:coverage  # 위와 동일 + coverage 리포트 (100% 임계값 강제)
+```
+
+테스트는 두 가지 방식을 섞어서 씁니다. `src/**/*.test.mts`는 빌드 없이 소스를 직접 단위 테스트하고, `test/tsserver.test.mts`는 빌드된 `dist/index.cjs`를 로드해서 tsserver가 실제로 의존하는 CommonJS 계약을 검증합니다 — 소스 레벨 테스트로는 잡을 수 없는 번들러/빌드 산출물 회귀는 이쪽에서 걸러집니다.
+
 ## 주의사항
 
 - 이 플러그인은 **VS Code**의 제한적인 셋업에서만 동작을 확인했습니다. WebStorm, Neovim 등 다른 tsserver 기반 에디터에서는 테스트되지 않았어요.
