@@ -1,6 +1,7 @@
 src/
+test/
 tsconfig.json
-tsup.config.ts
+tsdown.config.mts
 biome.jsonc
 CHANGELOG.md
 pnpm-lock.yaml
