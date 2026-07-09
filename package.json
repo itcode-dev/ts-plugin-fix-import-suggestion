@@ -5,8 +5,10 @@
 		"@biomejs/biome": "2.4.15",
 		"@itcode-dev/biome-config": "^1.1.0",
 		"@types/node": "^26.1.0",
+		"@vitest/coverage-v8": "^4.1.10",
 		"tsdown": "^0.22.3",
-		"typescript": "^6.0.3"
+		"typescript": "^6.0.3",
+		"vitest": "^4.1.10"
 	},
 	"devEngines": {
 		"packageManager": {
@@ -34,7 +36,9 @@
 		"build": "tsdown",
 		"check": "biome check",
 		"pretest": "tsdown",
-		"test": "node --test",
+		"pretest:coverage": "tsdown",
+		"test": "vitest run",
+		"test:coverage": "vitest run --coverage",
 		"typecheck": "tsc --noEmit"
 	},
 	"type": "commonjs",
