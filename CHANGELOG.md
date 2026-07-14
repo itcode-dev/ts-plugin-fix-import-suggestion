@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.0.3]
+
+### Removed
+
+- Removed the `devEngines.packageManager` field from `package.json`. It pinned pnpm to a semver *range* (`^11.1.1`), which newer pnpm releases reject outright (`Invalid package manager specification (pnpm@^11.1.1); expected a semver version`), breaking every `pnpm` command in the repo. The field is advisory only, so removing it is the safe fix.
+
+### Docs
+
+- `README.md`/`README.ko.md`: documented that VS Code must be set to use the **workspace version** of TypeScript (Status Bar → TypeScript version → **Use Workspace Version**), not the one bundled with VS Code. `tsconfig.json`-declared plugins are resolved relative to whichever TypeScript installation is actually running `tsserver` — if that's VS Code's bundled copy, it never looks in the project's `node_modules`, so this plugin (or any other locally-installed plugin) silently fails to load.
+- Added an example enabling `js/ts.tsdk.promptToUseWorkspaceVersion` in `.vscode/settings.json`, so VS Code proactively prompts anyone opening the workspace — teammates included — to switch to the workspace version instead of relying on everyone to do it manually.
+
+### Notes
+
+- No runtime behavior change: this release is docs and dev-tooling config only.
+
 ## [1.0.2]
 
 ### Changed
