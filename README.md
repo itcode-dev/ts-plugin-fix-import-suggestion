@@ -86,6 +86,18 @@ Add the plugin to the `compilerOptions.plugins` array in your `tsconfig.json`:
 
 Then restart the TypeScript server in your editor (in VS Code: **TypeScript: Restart TS Server**).
 
+> [!IMPORTANT]
+> In VS Code, make sure you're using the **workspace version** of TypeScript, not the one bundled with VS Code. VS Code resolves `tsconfig.json`-declared plugins relative to whichever TypeScript installation is actually running `tsserver` — if that's VS Code's own bundled copy (the default unless you've selected otherwise), it never looks inside your project's `node_modules`, so this plugin (and any other locally-installed plugin) silently fails to load with no error shown. Open a `.ts`/`.tsx` file, click the TypeScript version number in the Status Bar (bottom-right), and choose **Use Workspace Version**.
+>
+> To make this explicit for yourself or teammates instead of relying on everyone to do it manually, turn on `js/ts.tsdk.promptToUseWorkspaceVersion` in the repo's `.vscode/settings.json`. VS Code will then prompt anyone opening the workspace to switch to the workspace version:
+>
+> ```jsonc
+> // .vscode/settings.json
+> {
+>   "js/ts.tsdk.promptToUseWorkspaceVersion": true
+> }
+> ```
+
 ## Options
 
 | Option      | Type      | Default | Description                                                                                                                                                     |

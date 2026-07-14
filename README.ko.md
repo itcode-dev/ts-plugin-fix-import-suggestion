@@ -86,6 +86,18 @@ pnpm add --save-dev @itcode-dev/ts-plugin-fix-import-suggestion
 
 이후 에디터에서 TypeScript 서버를 재시작합니다 (VS Code: **TypeScript: Restart TS Server**).
 
+> [!IMPORTANT]
+> VS Code에서는 반드시 **워크스페이스 버전**의 TypeScript를 사용해야 합니다 — VS Code에 내장된 버전이 아니라요. VS Code는 `tsconfig.json`에 선언된 플러그인을, 실제로 `tsserver`를 구동 중인 TypeScript 설치 위치를 기준으로 찾습니다. 만약 그게 VS Code 내장 TypeScript라면(별도로 선택하지 않았다면 기본값입니다) 프로젝트의 `node_modules`는 아예 탐색하지 않기 때문에, 이 플러그인을 포함해 로컬에 설치된 어떤 플러그인도 에러 하나 없이 조용히 로드되지 않습니다. `.ts`/`.tsx` 파일을 열고 상태 표시줄(우측 하단)의 TypeScript 버전 번호를 클릭한 뒤 **Use Workspace Version**을 선택하세요.
+>
+> 각자 수동으로 바꾸도록 맡기는 대신, 레포의 `.vscode/settings.json`에 `js/ts.tsdk.promptToUseWorkspaceVersion`을 켜두면 이 워크스페이스를 여는 사람 누구에게나 VS Code가 워크스페이스 버전으로 전환할지 직접 물어봐 줍니다:
+>
+> ```jsonc
+> // .vscode/settings.json
+> {
+>   "js/ts.tsdk.promptToUseWorkspaceVersion": true
+> }
+> ```
+
 ## 옵션
 
 | 옵션        | 타입      | 기본값  | 설명                                                                                                   |
