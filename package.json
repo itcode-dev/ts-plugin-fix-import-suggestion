@@ -36,5 +36,5 @@
 	},
 	"type": "commonjs",
 	"types": "dist/index.d.cts",
-	"version": "1.0.2"
+	"version": "1.0.3"
 }
