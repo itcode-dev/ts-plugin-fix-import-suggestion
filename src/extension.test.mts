@@ -25,6 +25,34 @@ describe('getExtension', () => {
 	it('recognizes .js', () => {
 		expect(getExtension('formatDate.js')).toBe('.js');
 	});
+
+	it('returns undefined for .d.ts (a declaration file, not a .ts source file)', () => {
+		expect(getExtension('formatDate.d.ts')).toBeUndefined();
+	});
+
+	it('recognizes .mts', () => {
+		expect(getExtension('formatDate.mts')).toBe('.mts');
+	});
+
+	it('recognizes .cts', () => {
+		expect(getExtension('formatDate.cts')).toBe('.cts');
+	});
+
+	it('recognizes .mjs', () => {
+		expect(getExtension('formatDate.mjs')).toBe('.mjs');
+	});
+
+	it('recognizes .cjs', () => {
+		expect(getExtension('formatDate.cjs')).toBe('.cjs');
+	});
+
+	it('returns undefined for .d.mts (a declaration file, not a .mts source file)', () => {
+		expect(getExtension('formatDate.d.mts')).toBeUndefined();
+	});
+
+	it('returns undefined for .d.cts (a declaration file, not a .cts source file)', () => {
+		expect(getExtension('formatDate.d.cts')).toBeUndefined();
+	});
 });
 
 describe('fixExtension', () => {
@@ -46,5 +74,25 @@ describe('fixExtension', () => {
 
 	it('leaves the specifier untouched when it has no recognized extension', () => {
 		expect(fixExtension('./formatDate', '/repo/src/formatDate.ts')).toBe('./formatDate');
+	});
+
+	it('leaves a correct .js specifier untouched when it resolves to a companion .d.ts (ordinary compiled package, not a JIT package)', () => {
+		expect(fixExtension('./foo.js', '/repo/node_modules/my-lib/dist/foo.d.ts')).toBe('./foo.js');
+	});
+
+	it('swaps a fake .mjs specifier for the real .mts extension', () => {
+		expect(fixExtension('./formatDate.mjs', '/repo/src/formatDate.mts')).toBe('./formatDate.mts');
+	});
+
+	it('swaps a fake .cjs specifier for the real .cts extension', () => {
+		expect(fixExtension('./formatDate.cjs', '/repo/src/formatDate.cts')).toBe('./formatDate.cts');
+	});
+
+	it('leaves a correct .mjs specifier untouched when it resolves to a companion .d.mts', () => {
+		expect(fixExtension('./foo.mjs', '/repo/node_modules/my-lib/dist/foo.d.mts')).toBe('./foo.mjs');
+	});
+
+	it('leaves a correct .cjs specifier untouched when it resolves to a companion .d.cts', () => {
+		expect(fixExtension('./foo.cjs', '/repo/node_modules/my-lib/dist/foo.d.cts')).toBe('./foo.cjs');
 	});
 });
