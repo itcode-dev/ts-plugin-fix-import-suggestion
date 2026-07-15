@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0]
+
+### Fixed
+
+- Fixed a false positive where a completely correct `.js`/`.mjs`/`.cjs` import specifier for an ordinary compiled package (one that ships a `.js` file alongside a companion `.d.ts`/`.d.mts`/`.d.cts` declaration file — the standard output shape for `node16`/`nodenext` module resolution) would get incorrectly rewritten into a non-existent `.ts`/`.mts`/`.cts` specifier. The root cause: `.d.ts` ends with the substring `.ts` (same for `.d.mts`/`.d.cts`), so the extension-matching logic treated declaration files as if they were `.ts`/`.mts`/`.cts` *source* files. Declaration files are now explicitly excluded before the source-extension check.
+
+### Added
+
+- Extended support beyond `.js`/`.jsx` ↔ `.ts`/`.tsx` to also cover `.mjs`/`.cjs` ↔ `.mts`/`.cts`. TypeScript's specifier-substitution rule applies symmetrically to these extensions, so Turborepo JIT packages that ship raw `.mts`/`.cts` source (rather than `.ts`/`.tsx`) previously got no fix at all — auto-import suggestions ending in `.mjs`/`.cjs` for a `.mts`/`.cts` file went right past this plugin, since the `Extension` type only recognized `.ts`/`.tsx`/`.js`/`.jsx`.
+
+### Notes
+
+- Why minor and not patch: unlike previous releases, this one is not "no runtime behavior change" — the `.mts`/`.cts`/`.mjs`/`.cjs` support is genuinely new capability (previously unhandled cases are now handled), which is a backwards-compatible feature addition rather than a pure fix. The `.d.ts` false-positive fix included in this same release would have been patch-only on its own.
+
 ## [1.0.3]
 
 ### Removed

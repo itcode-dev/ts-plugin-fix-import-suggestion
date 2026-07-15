@@ -35,9 +35,9 @@ import { formatDate } from '@your-org/utils/formatDate.js';
 
 There is no `formatDate.js` file — only `formatDate.ts` exists. TypeScript still compiles and type-checks this fine (it has a special rule that maps a `.js` specifier back to a same-named `.ts`/`.tsx` file), so nothing is actually broken. But the import looks wrong, is confusing to read, and can trip up other tooling that expects import specifiers to point at real files.
 
-This plugin detects exactly this mismatch — a suggested specifier ending in `.js`/`.jsx` where the file TypeScript actually resolved ends in `.ts`/`.tsx` — and rewrites the suggestion to use the real extension. It has no effect on `tsc` builds or type-checking, since `tsc` never loads language service plugins — it only changes what your editor's IntelliSense shows and inserts.
+This plugin detects exactly this mismatch — a suggested specifier ending in `.js`/`.jsx` where the file TypeScript actually resolved ends in `.ts`/`.tsx` — and rewrites the suggestion to use the real extension. The same special-case mapping (and the same fix) also applies to `.mjs`/`.cjs` specifiers resolving to `.mts`/`.cts` source. It has no effect on `tsc` builds or type-checking, since `tsc` never loads language service plugins — it only changes what your editor's IntelliSense shows and inserts.
 
-Third-party packages that genuinely ship `.js`/`.jsx` files are unaffected — the fix only kicks in when the apparent specifier extension and the real resolved file extension disagree.
+Third-party packages that genuinely ship `.js`/`.jsx`/`.mjs`/`.cjs` files are unaffected — the fix only kicks in when the apparent specifier extension and the real resolved file extension disagree. This also means declaration files (`.d.ts`/`.d.mts`/`.d.cts`) never trigger a rewrite: an ordinary compiled package that ships e.g. `foo.js` alongside a `foo.d.ts` companion resolves to that `.d.ts` file, but since it isn't a `.ts` *source* file, the plugin correctly leaves the already-correct `.js` specifier alone.
 
 ## Is this still needed?
 

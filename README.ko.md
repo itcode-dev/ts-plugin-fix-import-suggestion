@@ -35,9 +35,9 @@ import { formatDate } from '@your-org/utils/formatDate.js';
 
 `formatDate.js`라는 파일은 존재하지 않아요 — 있는 건 `formatDate.ts`뿐입니다. TypeScript는 `.js` specifier를 같은 이름의 `.ts`/`.tsx` 파일로 되돌려주는 특수 규칙이 있어서 컴파일과 타입 체크는 문제없이 되지만(그래서 실제로 뭔가 깨지진 않아요), import 코드 자체는 보기에 이상하고 헷갈리며, import specifier가 실제 파일을 가리킨다고 가정하는 다른 툴에서 문제가 될 수 있습니다.
 
-이 플러그인은 정확히 이 불일치 — 제안된 specifier는 `.js`/`.jsx`로 끝나는데 TypeScript가 실제로 resolve한 파일은 `.ts`/`.tsx`로 끝나는 경우 — 를 감지해서, 제안을 실제 확장자로 고쳐줍니다. `tsc`는 language service plugin을 로드하지 않으므로 빌드나 타입 체크에는 아무 영향이 없습니다 — 오직 에디터의 IntelliSense가 보여주고 삽입하는 내용만 바꿉니다.
+이 플러그인은 정확히 이 불일치 — 제안된 specifier는 `.js`/`.jsx`로 끝나는데 TypeScript가 실제로 resolve한 파일은 `.ts`/`.tsx`로 끝나는 경우 — 를 감지해서, 제안을 실제 확장자로 고쳐줍니다. 동일한 특수 규칙(그리고 동일한 수정)이 `.mjs`/`.cjs` specifier가 `.mts`/`.cts` 소스로 resolve되는 경우에도 그대로 적용됩니다. `tsc`는 language service plugin을 로드하지 않으므로 빌드나 타입 체크에는 아무 영향이 없습니다 — 오직 에디터의 IntelliSense가 보여주고 삽입하는 내용만 바꿉니다.
 
-실제로 `.js`/`.jsx` 파일을 배포하는 서드파티 패키지는 영향을 받지 않습니다 — 겉보기 specifier의 확장자와 실제 resolve된 파일의 확장자가 다를 때만 동작합니다.
+실제로 `.js`/`.jsx`/`.mjs`/`.cjs` 파일을 배포하는 서드파티 패키지는 영향을 받지 않습니다 — 겉보기 specifier의 확장자와 실제 resolve된 파일의 확장자가 다를 때만 동작합니다. 같은 이유로 타입 선언 파일(`.d.ts`/`.d.mts`/`.d.cts`)도 절대 수정 대상이 되지 않습니다 — `foo.js`와 짝을 이루는 `foo.d.ts`를 배포하는 평범한 컴파일 패키지라면 resolve 결과가 `.d.ts`로 나오는데, 이건 `.ts` *소스* 파일이 아니므로 플러그인은 이미 올바른 `.js` specifier를 그대로 둡니다.
 
 ## 계속 필요한 디펜던시인가요?
 
